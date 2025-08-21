@@ -1,0 +1,5 @@
+outs:
+- md5: abe20332371e43b146b7189fd1b55d45
+  size: 31774113
+  hash: md5
+  path: bestnet.pt

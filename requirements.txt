@@ -1,0 +1,7 @@
+astro-sedpy
+astro-prospector
+
+clipppy[all] @ git+https://github.com/kosiokarchev/clipppy@0f44f9c42f7bd2a04759ecd68c0ba3315abc0b97
+phytorch @ git+https://github.com/kosiokarchev/phytorch
+slicsim @ git+https://github.com/kosiokarchev/slicsim
+uplot @ git+https://github.com/kosiokarchev/uplot
