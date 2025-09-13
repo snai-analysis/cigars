@@ -60,10 +60,10 @@ We release the "best" trained network from each stage (the checkpoint with the l
 - [`res/cigars-dindep-COUNTS/ZOOM_STAGE/bestnet.pt`](res/) :package:
 
 and the final results[^plotters] used for creating the plots
-- [`res/cigars-dindep-COUNTS/ZOOM_STAGE/wgplotter.pt`](res/),
-- [`res/cigars-dindep-COUNTS/ZOOM_STAGE/lpoststats.pt`](res/).
 - [`res/cigars-dindep-COUNTS/ZOOM_STAGE/wgplotter.pt`](res/): posteriors for global parameters (weighted samples),
 - [`res/cigars-dindep-COUNTS/ZOOM_STAGE/lpoststats.pt`](res/): posterior moments (mean and st. dev.) for object-specific (local) parameters (only for `COUNTS=1000`, i.e. the smaller data set).
+
+Finally, we provide an example notebook ([`cigars-plot.ipynb`](cigars-plot.ipynb)) that briefly demonstrates the contents and usage of the result files.
 
 [^counts]: `COUNTS` is a *label* for the size of the analysed/mocked survey. It was tuned based on the size of the galaxy bank (1000000) under the assumption of matching host- and SN dust extinction. With the independent-dust model we use in the paper (labelled "`dindep`" in file names), the two examples—with roughly 1600 and 16000 objects—correspond to `COUNTS` of `1000` and `10000`.
 [^train]: The training data sets are not included in the repository because of their size. They are simply a 10x larger version of the validation sets (which *are* released) and can be re-generated as detailed here.
