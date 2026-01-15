@@ -46,7 +46,10 @@ STEPPARAMS = 'step_M_logmass', 'step_M_logmass_loc', 'gamma_M_logzsol', 'gamma_M
 STEPGROUPS = (STEPPARAMS[0], STEPPARAMS[2]), (STEPPARAMS[0], STEPPARAMS[3]),  (STEPPARAMS[2], STEPPARAMS[3])
 GROUPS_GLOBAL = c.cosmogroup, c.dtdgroup, 'M0', 'sigma_res', 'alpha', 'beta', 'alpha_c', STEPPARAMS[1], *STEPGROUPS
 
-GROUPS_LOCAL = 'z', 'logmass', 'logzsol', 'dust_index', 'dust2', 'x_int', 'c_int', 'delta_M'
+if args.train_locals:
+    GROUPS_LOCAL = 'z', 'logmass', 'logzsol', 'dust_index', 'dust2', 'x_int', 'c_int'
+else:
+    GROUPS_LOCAL = ()
 
 SLGROUPS = 'delta_M',
 
@@ -56,7 +59,7 @@ nre = NRE(obs_names=('gmags_obs', 'snobs'), param_names=tuple(
 ))
 
 #%% Network and training hyperparameters
-kw = dict(bias=False, whiten=dict(affine=False))
+kw = dict(bias=False, whiten=True)
 
 hp = h.Hyperparams(
     h.Structure(
@@ -114,7 +117,7 @@ nre.tail = MultiSBITail(tails={
         head=SetCollapser(Elementwise(Sequential(
             hps.head.cds_feat.make(),
             *(LazyResidBlock(**kw) for _ in range(hps.head.cds_nresid))
-        )), lens_scale=c.counts / 1000 if c.counts != 1000 else None),
+        )), lens_scale=c.counts),
         tail=NRETail(thead=hps.tail.thead.make(), xhead=hps.tail.xhead.make(),
                      net=Sequential(hps.tail.net.make(), LeakyPOP())),
         set_norm=True,
@@ -131,8 +134,7 @@ nre.tail = MultiSBITail(tails={
 })
 
 #%% Load base network to fine-tune, if requested
-fine_tune = yaml.YAML(typ='safe', pure=True).load((c.base_resdir / 'finetune.yaml').open()).get(c.name)
-# fine_tune = False
+fine_tune = yaml.YAML(typ='safe', pure=True).load((c.base_resdir / 'finetune.yaml').open()).get(c.name, False)
 
 if args.fine_tune and fine_tune:
     from libcigars.utils import load_for_finetuning

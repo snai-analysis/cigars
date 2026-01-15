@@ -20,7 +20,7 @@ class GalaxyPopulation(_PyroModule):
 
     @staticmethod
     def calc_dust(data: GalaxyDataT):
-        A_B, A_V = KriekConroy13().mag(data['dust_index'].new_tensor([4450, 5510])[:, None], data['dust_index'])
+        A_B, A_V = KriekConroy13(dust_index=data['dust_index']).mag(data['dust_index'].new_tensor([4450, 5510])[:, None])
         return A_V/(A_B-A_V), data['dust2']
 
     @PyroDeterministic

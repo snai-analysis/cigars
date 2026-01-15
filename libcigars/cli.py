@@ -11,6 +11,8 @@ class Args(argparse.Namespace):
     norms: bool = True
 
     fine_tune: bool = True
+    train_locals: bool = True
+
     max_steps: int = 100_000
     lr_name: Literal['high', 'low', 'step'] = 'high'
     lr_step_init: float = 1e-3
@@ -30,6 +32,7 @@ parser = argparse.ArgumentParser('CIGaRS')
 parser.add_argument('--norms', action=argparse.BooleanOptionalAction, default=True)
 
 parser.add_argument('--fine-tune', action=argparse.BooleanOptionalAction, default=True)
+parser.add_argument('--train-locals', action=argparse.BooleanOptionalAction, default=False)
 
 parser.add_argument('--max-steps', default=100_000, type=int)
 parser.add_argument('--lr-name', default='high', choices=('high', 'low', 'step'))

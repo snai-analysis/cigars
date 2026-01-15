@@ -30,7 +30,7 @@ We make use of the [Clipppy](https://github.com/kosiokarchev/clipppy), [φtorch]
 > Tested on Linux and Windows using Python 3.12 and PyTorch 2.6, although earlier versions should work as well, as long as the environment is consistent.
 
 We release several Python scripts (see [`libcigars/cli.py`](libcigars/cli.py) for the command-line options (not all apply to a given script)) corresponding to different aspects of our analysis. The workflow starts with
-1. [`cigars-galsim.py`](cigars-galsim.py) to generate the bank of potential hosts and their (absolute, noiseless) photometry
+1. [`cigars-galsim.py`](cigars-galsim.py) to generate the bank[^bank] of potential hosts and their (absolute, noiseless) photometry
    - → [`train/prospector-beta-sims.pt`](train/prospector-beta-sims.pt.dvc) :package:.
 
 Then, for given `COUNTS`[^counts] and `ZOOM_STAGE` (starting at zero):
@@ -65,6 +65,7 @@ and the final results[^plotters] used for creating the plots
 
 Finally, we provide an example notebook ([`cigars-plot.ipynb`](cigars-plot.ipynb)) that briefly demonstrates the contents and usage of the result files.
 
+[^bank]: Note that the present bank-generation code does not include the re-weighting procedure described in the Implementation details in the paper since it was added later during review. Please use the provided bank(s) instead.
 [^counts]: `COUNTS` is a *label* for the size of the analysed/mocked survey. It was tuned based on the size of the galaxy bank (1000000) under the assumption of matching host- and SN dust extinction. With the independent-dust model we use in the paper (labelled "`dindep`" in file names), the two examples—with roughly 1600 and 16000 objects—correspond to `COUNTS` of `1000` and `10000`.
 [^train]: The training data sets are not included in the repository because of their size. They are simply a 10x larger version of the validation sets (which *are* released) and can be re-generated as detailed here.
 [^plotters]: Note that the results for each global-parameter group (in `wgplotter`s) are derived from a generally different checkpoint based on the individual respective validation loss, while the local-parameter results all come from the same `bestnet`. We do not release the raw `wlplotter`s due to their size.

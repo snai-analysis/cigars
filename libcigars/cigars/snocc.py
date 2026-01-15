@@ -1,6 +1,5 @@
 from abc import abstractmethod
 
-import numpy as np
 import torch
 from math import log
 from pyro.distributions import Normal
@@ -35,10 +34,13 @@ class DTD(SNOcc):
 
     @PyroDeterministic
     def lnrate(self):
-        return log(10) * (
+        ret = log(10) * (
             self.dtd_A[..., None, None] - (1+self.hostpop['zred']).log10().unsqueeze(-1)
             + (self.hostpop['logmasses'][..., 2:] + self.dtd_s[..., None, None] * (self.hostpop['logages'][..., 2:] - 9))
         )
+        if '_lnweight' in self.hostpop:
+            ret = ret + self.hostpop['_lnweight'].unsqueeze(-1)
+        return ret
 
     @PyroDeterministic
     def expected_count(self):

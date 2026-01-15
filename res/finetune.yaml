@@ -1,7 +1,4 @@
+cigars-dindep-1000-1: {counts: 1000, zoom_stage: 0}
 cigars-dindep-1000-2: {counts: 1000, zoom_stage: 1}
-cigars-dindep-1000-3: {counts: 1000, zoom_stage: 2}
-cigars-dindep-1000-4: {counts: 1000, zoom_stage: 3}
 cigars-dindep-10000-0: {counts: 1000, zoom_stage: 2}
 cigars-dindep-10000-1: {counts: 10000, zoom_stage: 0}
-cigars-dindep-w0wa-1000-0: {variant: dindep, counts: 1000, zoom_stage: 3}
-cigars-dindep-w0wa-1000-1: {counts: 1000, zoom_stage: 0}

@@ -1,2 +1,3 @@
 res/**/bestnet.pt
 train/prospector-beta-sims.pt
+train/prospector-beta-sims-alt.pt

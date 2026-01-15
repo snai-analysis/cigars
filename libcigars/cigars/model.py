@@ -1,6 +1,7 @@
 from collections import ChainMap
 from contextlib import nullcontext
 from enum import Enum, auto
+from math import log, exp
 from typing import Collection, Iterable, Mapping, Literal
 
 import attr
@@ -46,7 +47,13 @@ class CIGARS(_PyroModule):
 
     def __attrs_post_init__(self):
         super().__attrs_post_init__()
-        self.counts_scale = self.counts / 500 / (len(self.galpop.galpop) / 1e6)
+        self.counts_scale = (self.counts / 500) / (len(self.galpop.galpop) / 1e6)
+
+        if '_lnweight' in self.galpop.galpop:
+            self.counts_scale /= exp(
+                self.galpop.galpop['_lnweight'].logsumexp(-1).item()
+                - log(len(self.galpop.galpop['_lnweight']))
+            )
 
     @PyroSample
     def sncount(self):

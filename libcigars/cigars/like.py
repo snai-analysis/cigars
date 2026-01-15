@@ -2,47 +2,22 @@ import attr
 import pyro
 import torch
 from pyro.distributions import Normal
-from pyro.nn import pyro_method, PyroSample
+from pyro.nn import PyroSample
 
 from clipppy.utils.pyro import Contextful
-from phytorch.constants import c as speed_of_light
-from phytorch.cosmology.special.decdm import BaseDECDM
-from phytorch.units import Unit
 from phytorchx import mid_one
 from .model import CIGARS
+from .simple import ExtConstraintsMixin
 
 
 @attr.s(eq=False, auto_attribs=True, kw_only=True)
-class CIGARSLikelihood(CIGARS):
-    cosmo_planck: BaseDECDM
-    cosmo_lowz: BaseDECDM
-
+class CIGARSLikelihood(CIGARS, ExtConstraintsMixin):
     @Contextful
     def cosmoparams(self):
         return {
             key: pyro.sample(key, val)
             for key, val in self.cosmodel._priors.items()
         }
-
-    planck_z: float = 1100.
-    planck_sigma: float = 0.006
-
-    @PyroSample
-    def planck(self):
-        self.cosmo_planck._set_params(**self.cosmoparams)
-        return Normal(
-            (self.cosmo_planck.Om0**0.5 * self.cosmo_planck.H0 / speed_of_light
-             * (1+self.planck_z) * self.cosmo_planck.angular_diameter_distance(self.planck_z)
-             ).to(Unit()).value,
-            self.planck_sigma
-        )
-
-    lowz_z: float = 0.05
-    lowz_sigma: int = 0.1 / 500**0.5
-
-    @PyroSample
-    def lowz(self):
-        return Normal(self.cosmo_planck._set_params(**self.cosmoparams).distmod(self.lowz_z), self.lowz_sigma)
 
     highz_cond: dict
 

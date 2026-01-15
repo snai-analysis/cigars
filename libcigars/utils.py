@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import torch
 from more_itertools import collapse
 from tqdm.auto import tqdm
@@ -8,13 +6,11 @@ import phytorchx
 from clipppy.sbi.nn.sets import ConditionedSetNRETail
 from clipppy.utils.nn import LazyWhitenOnline
 from phytorchx.dataframe import TensorDataFrame
-from clipppy.utils.plotting.sbi import MultiSBIPosteriorPlotter
 
 
 def load_for_finetuning(nre, ckpt, reset_frac=float('inf')):
     from clipppy.utils.nn import WhitenOnline
     from clipppy.sbi.nn import ModuleDict2
-    from clipppy.sbi.nn.sets import LocalSetNRETail
 
     nre.head, tail = phytorchx.load(ckpt)['clipppy_nets']
 
@@ -60,15 +56,15 @@ def load_nre(path):
     return nre, groups_global, groups_local
 
 
-def get_best_global_results(logdir: Path, gplotter: MultiSBIPosteriorPlotter, data, obs=None) -> MultiSBIPosteriorPlotter:
-    if obs is None:
-        obs = data
-
+def get_best_results(logdir, datamod, obs):
     import tensorboard.backend.event_processing.event_accumulator as ea
 
     tb = ea.EventAccumulator(str(logdir), {ea.SCALARS: 0}).Reload()
 
-    lws = {}
+    gplotter = datamod.posterior_plotter
+
+    global_lws = {}
+    local_lws = {}
     for tag in tb.Tags()['scalars']:
         if not tag.startswith('val/'):
             continue
@@ -78,13 +74,17 @@ def get_best_global_results(logdir: Path, gplotter: MultiSBIPosteriorPlotter, da
             key = eval(key)
 
         beststep = min(tb.Scalars(tag), key=lambda s: s.value).step + 1
-        nre, groups_global, *_ = load_nre(logdir / f'checkpoints/step={beststep}.ckpt')
+        print(key, beststep)
+
+        nre, groups_global, groups_local = load_nre(logdir / f'checkpoints/step={beststep}.ckpt')
 
         if key in groups_global:
-            print(key, beststep)
-            lws.update(gplotter._eval_nre((key,), nre, gplotter._samples, obs))
-
-    return gplotter.with_ratios(lws, truths=data)
+            global_lws.update(gplotter._eval_nre((key,), nre, gplotter._samples, obs))
+        elif key in groups_local:
+            local_lws.update(eval_nre_local(nre, datamod.local_val_params, obs, (key,), 64))
+        else:
+            print('Unknown group', key)
+    return global_lws, local_lws
 
 
 def eval_nre_local(nre, params, obs, names, batch_size):
@@ -93,5 +93,5 @@ def eval_nre_local(nre, params, obs, names, batch_size):
         for params in tqdm(TensorDataFrame(params).batched(batch_size, shuffle=False), leave=False):
             for key, val in lnr.items():
                 _params, _obs = nre.head(params, obs)
-                val.append(nre.tail.forward_one(key, {key: p[..., None] for key, p in _params.items()}, _obs).squeeze(0))
+                val.append(nre.tail.forward_one(key, {key: _params[k][..., None] for k in names}, _obs).squeeze(0))
     return {key: val - val.logsumexp(0, keepdim=True) for key, val in lnr.items() for val in [torch.cat(val, 0)]}
