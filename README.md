@@ -2,11 +2,14 @@
 
 This repository contains the code and outputs from
 
-> "Combined simulation-based inference from SNæ Ia and host photometry"
+> "CIGaRS I: combined simulation-based inference from type Ia supernovae and host photometry"
 >
-> by Konstantin Karchev, Roberto Trotta, and Raul Jimenez
+> Konstantin Karchev, Roberto Trotta, and Raúl Jiménez. *Nature Astronomy* (2026).
 >
-> [![arXiv:2508.XXXXX](https://img.shields.io/badge/arXiv-2508.15899-b31b1b?logo=arxiv&logoColor=red)](https://arxiv.org/abs/2508.15899)
+>
+> [![arXiv:2508.15899](https://img.shields.io/badge/arXiv-2508.15899-b31b1b?logo=arxiv&logoColor=red)](https://arxiv.org/abs/2508.15899)
+> [![DOI:10.1038/s41550-026-02842-5](https://img.shields.io/badge/DOI-10.1038%2Fs41550--026--02842--5-b31b1b?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAD/h4/MvwAAAAlwSFlzAAAXEQAAFxEByibzPwAAAAd0SU1FB+gDGgg5BT461ukAAABedEVYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAKaXB0YwogICAgICAyOAozODQyNDk0ZDA0MDQwMDAwMDAwMDAwMGYxYzAyNmUwMDAzNTI0NjQ3MWMwMjAwMDAwMjAwMDQwMApgmj2eAAADBUlEQVRYw72Yv09UQRDHP2857jQoYIgQ5Ydaef7EgggFvRGjhZ0awx9gYkFlc4maWBgbekzoTKwwJkJDvFiYSEJDvCCHv8JdTK4h5s4YRY/7WpzoW96+uwN8zlbz5u13ZnZmZ2fXox61cpxBBkjSSxsJYI0ieZaYZ45FSrWnezVkhqOMcJ6TdBBzyMuskmGGabJU6hoaoH7GWUENjBXG6d8aeBcpcg2Bb4wcKboahR8mTWVL8EJUSDNcH7yJ0S3abvsxSlMt+GbGKG4bXogiYzSHWz/G1x3BC/GVsTAvRndo/V8vRt2h3f7aB2MRCHcX6VpT4or7uL3q1mEd0J7wGenNSZsKS8x2ndVNPdY5IWQ0qPt6oaw+6I2e655OhyVtyt61uaDNh3RJD/RSq5Kka0LtuquCbHqvy2HL9Gd3G8aD8Lf1Tt//wJR1RS16qIqC9FYn3CrGMVUFx1w157rWfCBlXdMtrctNd9wKVjgGBrhAXzCpnvLKx1U4ww1EgSzLfA4kYIsrL/sYAWhl1h3elOXBsp7pqo7roLo1pEeWN1n1uH2YpRWGKLgVXPTFQHqifT5ZnzI+2Scl3QoKDBkG6XBv7ALffFzeWphPvLZqTEht6GDQMOA8rYAflH2cffSt84UGKMaAIdnIn0FSY78lDb3bU9Ag9RraIlXQZkhEqiBhIoUHDGuR4q8ZipEqKBrykSrIG5Ya+9Orw4fQkmHe2rA+arJA7GLgWbwJKxVl5g1zrLqlsU0gNvn5prBqs8qcYZGMW7rbmtZs+eMRt0zZ5YbIsGgoMeOWtlkgLZY/MeuIiYeVgxlKBpgm55J2Wj3gPktdnHaL63QB5JiuLmWWKZf8iLUonZbNe9jv4wyHXQBTZKsKKkwGd0OCUxbfQ4+P66Xbkp4Odrx5JqnwO44LTHDHTu0EGUq+ql+28sbjiS8mHh9J8NM/XUyw4P8QaB09mU3Dqymt1zpG3vxC5O37f7iARH6FqnoR6SVwI9wRXmM3kjbSi3iV/tFTQuSPIfVPvh0+5/wCZHf95+bZniQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjQtMDMtMjZUMDg6NTY6NTUrMDA6MDBIVKTTAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI0LTAzLTI2VDA4OjU2OjU1KzAwOjAwOQkcbwAAACh0RVh0ZGF0ZTp0aW1lc3RhbXAAMjAyNC0wMy0yNlQwODo1NzowNSswMDowMMk+WOoAAAAASUVORK5CYII=)](https://doi.org/10.1038/s41550-026-02842-5)
+> [![zenodo.18705765](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.18705765-b31b1b?logo=zenodo)](https://doi.org/10.5281/zenodo.18705765)
 
 ---
 
